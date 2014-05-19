@@ -1,0 +1,98 @@
+<h1>{{category}}</h1>
+
+<div ng-hide="category" class="col-md-12">
+	<div class="row">
+		<div class="col-sm-4 col-md-3">
+			<h3>Please select a category!</h3>
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active"><a href="#">Domains</a></li>
+				<li><a href="#/dashboard/team-wellness">Team Wellness</a></li>
+				<li><a href="#/dashboard/tecnique+stragegy">Technique & Strategy</a></li>
+				<li><a href="#/dashboard/coaching-craft">Coaching Craft</a></li>
+				<li><a href="#/dashboard/operations">Operations</a></li>
+				<li><a href="#/dashboard/fitness+conditioning">Fitness & Conditioning</a></li>
+			</ul>
+		</div>
+		<div class="col-sm-8 col-md-9">
+			<div id="graph-container" style="height: 400px; margin: 0 auto"></div>
+		</div>
+	</div>
+</div>
+
+
+<div class="row" ng-show="category">
+	<button ng-click="getNote($index)" data-toggle="modal" data-target="#goalModal" style="float:right;margin-bottom:2%;" type="submit" class="btn btn-default">Add New Goal</button>
+	<div class="col-md-12">
+		<div class="input-group input-group-lg">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+		  	
+		  	<input type="search" class="form-control" ng-model="q" placeholder="filter notes..." />
+		</div>
+		
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Dates</th>
+					<th>Description</th>
+					<th>Interval</th>
+					<th>Unit</th>
+					<th>Output/Calc</th>
+					<th>Output/Comp</th>
+					<th>Note</th>
+				</tr>
+			</thead>
+		<tbody>
+			<tr ng-repeat="note in notes | filter:q">
+				<td>{{note.dates}}</td>
+				<td>{{note.desc}}</td>
+				<td>{{note.interval}}</td>
+				<td>{{note.unit}}</td>
+				<td>{{note.calc}}</td>
+				<td>{{note.comp}}</td>
+				<td><a ng-click="getNote($index)" data-toggle="modal" data-target="#noteModal">View/Edit</a></td>
+			</tr>
+			</tbody>
+		</table>
+    </div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">Note</h4>
+	      </div>
+	      <div class="modal-body">
+	        <form role="form">
+		      <textarea ng-model="activeNote" class="form-control" rows="3"></textarea>
+		    </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveNote()">Save changes</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+	<div class="modal fade" id="goalModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	        <h4 class="modal-title" id="myModalLabel">New Goal</h4>
+	      </div>
+	      <div class="modal-body">
+	        <form role="form">
+		      <textarea ng-model="activeNote" class="form-control" rows="3"></textarea>
+		    </form>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="saveNote()">Add Goal</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>
